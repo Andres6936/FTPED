@@ -26,4 +26,5 @@ setInterval(async () => {
     await sendFiles();
 }, Number(process.env.FTPS_CYCLE_MS));
 
+console.log("Running service: FTPS Server Connect");
 console.log("Cycle each: " + Number(process.env.FTPS_CYCLE_MS) / 1000 + " seconds.");
