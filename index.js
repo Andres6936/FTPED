@@ -24,4 +24,6 @@ import {removeLockFileFrom, sendFiles, verifyDirectory} from "./js/sender.js";
 // in the directory.
 setInterval(async () => {
     await sendFiles();
-}, 90_000);
+}, Number(process.env.FTPS_CYCLE_MS));
+
+console.log("Cycle each: " + Number(process.env.FTPS_CYCLE_MS) / 1000 + " seconds.");
