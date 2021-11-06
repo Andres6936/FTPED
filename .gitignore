@@ -1,0 +1,7 @@
+.idea/
+dummy/
+bucket/
+backup/
+node_modules/
+package-lock.json
+.env
