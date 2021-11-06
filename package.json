@@ -1,0 +1,17 @@
+{
+  "name": "ftped",
+  "version": "1.0.0",
+  "description": "Component Linux FTP Seguro Extremo Digital",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node -r dotenv/config index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Joan Andrés Buriticá Salazar",
+  "license": "ISC",
+  "dependencies": {
+    "basic-ftp": "^4.6.6",
+    "dotenv": "^10.0.0"
+  }
+}
