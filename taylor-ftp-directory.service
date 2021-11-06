@@ -1,0 +1,15 @@
+[Unit]
+Description=Integration Taylor to Extremo Digital, Send of files using FTP.
+After=network.target
+
+[Install]
+WantedBy=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/npm start
+WorkingDirectory=/home/web/FTPED
+Restart=always
+RestartSec=90
+StandardOutput=syslog
+StandardError=syslog
