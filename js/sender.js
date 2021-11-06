@@ -101,7 +101,12 @@ export async function sendFiles() {
             port: process.env.FTPS_PORT,
             user: process.env.FTPS_USER,
             password: process.env.FTPS_PASS,
-            secure: true
+            // Only allow insecure connection with debug flag active (This is
+            // useful only when a developer is working), for production it
+            // flag is true, meaning that any attempt to connect to an FTP
+            // with a self-signed or expired certificate will fail as an
+            // exception will be thrown.
+            secure: !process.env.DEBUG,
         })
 
         // Log progress for any transfer from now on.
@@ -120,7 +125,7 @@ export async function sendFiles() {
         }
 
         await fs.promises.writeFile(process.env.DIRECTORY_BUCKET + '.lock', new Date().toISOString())
-        await client.cd(destinationPath);
+        await client.ensureDir(destinationPath);
         await client.uploadFromDir(process.env.DIRECTORY_BUCKET);
         await moveAllFiles(process.env.DIRECTORY_BUCKET, process.env.DIRECTORY_BACKUP);
         await removeLockFileFrom(process.env.DIRECTORY_BACKUP);
