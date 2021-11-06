@@ -105,7 +105,19 @@ export async function sendFiles() {
             destinationPath += '/'
         }
 
+        // Make sure a given remote path exists, creating all directories as
+        // necessary. This function also changes the current working directory
+        // to the given path.
         await client.ensureDir(destinationPath);
+        // Upload the contents of a local directory to the remote working
+        // directory.
+        // This will overwrite existing files with the same names and reuse
+        // existing directories. Unrelated files and directories will remain
+        // untouched. You can optionally provide a remoteDirPath to put the
+        // contents inside a directory which will be created if necessary
+        // including all intermediate directories. If you did provide a
+        // remoteDirPath the working directory will stay the same as before
+        // calling this method.
         await client.uploadFromDir(process.env.DIRECTORY_BUCKET);
         await moveAllFiles(process.env.DIRECTORY_BUCKET, process.env.DIRECTORY_BACKUP);
     } catch (err) {
