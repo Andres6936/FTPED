@@ -101,4 +101,4 @@ pues ahí debera de ejecutar el siguiente comando:
 
 Log general de servicios
 
-`journalctl -u taylor-ftp-directory.service`
+![](img/LogService.svg)
