@@ -59,19 +59,22 @@ Comando de copiado
 
 ![](img/CopyRecursively.svg)
 
-instalación del servicio
+### Instalación del servicio
 
-Nos traemos el repositorio del servicio desde
+Con el comando `git`, traeremos el repositorio donde reside el código del servicio.
 
-Se debe de modificar el WorkingDirectory (debe ser la ruta donde se descargo el
-repositorio)
+> git clone --recursive --depth=1 https://github.com/Taylor-Johnson/FTPED.git
+
+Para la ejecución como Deamon del servicio, necesitaremos modificar el archivo .service
+que se haya en la raiz del proyecto y ajustar varías variables, se debe de modificar el **
+WorkingDirectory** (debe de establecer la ruta a la raiz del proyecto, esto es: donde
+descargo el repositorio).
 
 ![](img/CatService.svg)
 
-Para este caso “/home/prbfundacion/services/TyJExtremoDigital/WSCMV”
-
-Mover el archivo de decisión del servicio a la carpeta donde se 
-hacen la ejecución de los servicios Systemctl.
+Una vez ha realizado la modificación del archivo .service debe de mover este archivo de
+definición del servicio a la carpeta donde residen las definiciones de los demás servicios
+Deamon del sistema, para Ubuntu suele ser: `systemctl`.
 
 Copio el archivo estando posicionado en la ruta:
 
