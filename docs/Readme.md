@@ -63,7 +63,7 @@ Comando de copiado
 
 Con el comando `git`, traeremos el repositorio donde reside el código del servicio.
 
-> git clone --recursive --depth=1 https://github.com/Taylor-Johnson/FTPED.git
+`git clone --recursive --depth=1 https://github.com/Taylor-Johnson/FTPED.git`
 
 Para la ejecución como Deamon del servicio, necesitaremos modificar el archivo .service
 que se haya en la raiz del proyecto y ajustar varías variables, se debe de modificar el **
@@ -74,20 +74,35 @@ descargo el repositorio).
 
 Una vez ha realizado la modificación del archivo .service debe de mover este archivo de
 definición del servicio a la carpeta donde residen las definiciones de los demás servicios
-Deamon del sistema, para Ubuntu suele ser: `systemctl`.
+Deamon del sistema, para Ubuntu suele ser: `/etc/systemd/system`.
+
+![](img/EtcSystemd.svg)
 
 Copio el archivo estando posicionado en la ruta:
 
-Crear archivo .env
+### Configuración del Servicio
+
+Antes de ejecutar el servicio debe de crear el archivo de configuración .env en este
+archivo se definiran las variables que necesita el servicio para ser configurado y
+funcionar correctamente.
 
 ![](img/EnvFile.svg)
 
-Instalar Dependencias: se debe ejecutar el comando desde la ruta del repositorio
-
-Activar Servicio
-
-Ejecutar npm install en la ruta
+Una vez se ha definido el archivo de configuración .env es hora de instalar dependencias,
+para este caso es necesario se posicione sobre la ruta donde reside el código del proyecto
+pues ahí debera de ejecutar el siguiente comando:
 
 ![](img/NPM-Install.svg)
 
-Log general de servicios 
+### Activar Servicio
+
+```
+systemctl deamon-reload
+systemctl enable taylor-ftp-directory.service
+systemctl start taylor-ftp-directory.service
+systemctl status taylor-ftp-directory.service
+```
+
+Log general de servicios
+
+`journalctl -u taylor-ftp-directory.service`
