@@ -88,7 +88,6 @@ export async function sendFiles() {
     // by another function
     if (fs.readdirSync(process.env.DIRECTORY_BUCKET).length === 0) return;
 
-    await moveAllFiles(process.env.DIRECTORY_BUCKET, DIRECTORY_STAGE);
     await console.log("Begin cycle");
     const client = new ftp.Client();
     // Only for debug session
@@ -110,7 +109,7 @@ export async function sendFiles() {
             // flag is true, meaning that any attempt to connect to an FTP
             // with a self-signed or expired certificate will fail as an
             // exception will be thrown.
-            secure: !process.env.DEBUG,
+            secure: process.env.DEBUG === 'true',
         })
 
         // Log progress for any transfer from now on.
@@ -128,6 +127,7 @@ export async function sendFiles() {
             destinationPath += '/'
         }
 
+        await moveAllFiles(process.env.DIRECTORY_BUCKET, DIRECTORY_STAGE);
         // Make sure a given remote path exists, creating all directories as
         // necessary. This function also changes the current working directory
         // to the given path.
