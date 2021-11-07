@@ -21,9 +21,7 @@ página oficial.
 Validacion de que no esten instalados los complementos
 
 ![](img/NPM-NotFound.svg)
-
 ![](img/Node-NotFound.svg)
-
 ![](img/Git-NotFound.svg)
 
 Instalación de git
@@ -96,12 +94,10 @@ pues ahí debera de ejecutar el siguiente comando:
 
 ### Activar Servicio
 
-```
-systemctl deamon-reload
-systemctl enable taylor-ftp-directory.service
-systemctl start taylor-ftp-directory.service
-systemctl status taylor-ftp-directory.service
-```
+![](img/ReloadDeamon.svg)
+![](img/EnableService.svg)
+![](img/StartService.svg)
+![](img/StatusService.svg)
 
 Log general de servicios
 
