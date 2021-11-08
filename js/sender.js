@@ -86,7 +86,7 @@ export async function sendFiles() {
     // We verify that the conditions mentioned above are met, i.e., that
     // there is more than one file in the directory and that it is released
     // by another function
-    if (fs.readdirSync(process.env.DIRECTORY_BUCKET).length === 0 ||
+    if (fs.readdirSync(process.env.DIRECTORY_BUCKET).length === 0 &&
         fs.readdirSync(DIRECTORY_STAGE).length === 0) return;
 
     await console.log("Begin cycle");
