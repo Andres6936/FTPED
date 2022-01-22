@@ -42,10 +42,12 @@ export async function verifyDirectory(directory) {
 
 /**
  * Move all the files from directory to directory, if the destination
- * directory not exist it function created the directory.
+ * directory not exist it function created the directory, if the user
+ * that execute this service not had the permissions for read (move)
+ * the files it function change the permissions and read (move) the files.
  *
- * @param from Directory from the current files are stored.
- * @param to Destination directory from the files will be saved.
+ * @param {string} from Directory from the current files are stored.
+ * @param {string} to Destination directory from the files will be saved.
  * @returns {Promise<void>} None
  */
 async function moveAllFiles(from, to) {
@@ -55,7 +57,27 @@ async function moveAllFiles(from, to) {
         if (err) throw err;
 
         for (const file of files) {
-            fs.rename(path.join(from, file), path.join(to, file), err => {
+            const pathFrom = path.join(from, file);
+            // For the generally, the service that move the files to
+            // directory where we take the files set the permissions
+            // for this files for he, however, when we trying read
+            // (move) the files a exception is thrown.
+
+            // Change the permissions of each file to move, in this case
+            // the permissions that needed are:
+            fs.chmod(pathFrom,
+                // Readable by owner
+                fs.constants.S_IRUSR |
+                // Readable by group
+                fs.constants.S_IRGRP |
+                // Readable by others
+                fs.constants.S_IROTH,
+                err => {
+                    if (err) throw err;
+                    console.log('The permissions for file' + pathFrom + ' have been changed!');
+                });
+
+            fs.rename(pathFrom, path.join(to, file), err => {
                 if (err) throw err;
             });
         }
