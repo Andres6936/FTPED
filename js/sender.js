@@ -114,7 +114,8 @@ export async function sendFiles() {
         fs.readdirSync(DIRECTORY_STAGE).length === 0) return;
 
     await console.log("Begin cycle");
-    const client = new ftp.Client();
+    // The timeout is set to 180 seconds (3 minutes)
+    const client = new ftp.Client(180_000);
     // Only for debug session
     client.ftp.verbose = (process.env.DEBUG === 'true');
     try {
