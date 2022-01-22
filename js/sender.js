@@ -66,12 +66,14 @@ async function moveAllFiles(from, to) {
             // Change the permissions of each file to move, in this case
             // the permissions that needed are:
             fs.chmod(pathFrom,
-                // Readable by owner
-                fs.constants.S_IRUSR |
-                // Readable by group
-                fs.constants.S_IRGRP |
-                // Readable by others
-                fs.constants.S_IROTH,
+                // Constant for fs.Stats mode property for determining access
+                // permissions for a file. File mode indicating readable,
+                // writable and executable by group.
+                fs.constants.S_IRWXG |
+                // Constant for fs.Stats mode property for determining access
+                // permissions for a file. File mode indicating readable,
+                // writable and executable by others.
+                fs.constants.S_IRWXO,
                 err => {
                     if (err) throw err;
                     console.log('The permissions for file' + pathFrom + ' have been changed!');
@@ -167,7 +169,7 @@ export async function sendFiles() {
         await client.uploadFromDir(DIRECTORY_STAGE);
         await moveAllFiles(DIRECTORY_STAGE, process.env.DIRECTORY_BACKUP);
     } catch (err) {
-        console.error(err);
+        console.error('Exception thrown, cause: ' + err.message + "\n\nSee trace: " + err);
     }
     await client.close()
 }
